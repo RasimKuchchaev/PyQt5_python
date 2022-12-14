@@ -8,16 +8,22 @@ class DlgMain(QDialog):
         super().__init__()
         self.resize(200, 200)
 
-        self.btn = QPushButton('Choose color', self)
+        self.btn = QPushButton('Choose font', self)
         self.btn.move(35, 50)
+        font = QFont('Arial', 12, 75, True)
+        self.btn.setFont(font)
         self.btn.clicked.connect(self.evt_btn_clicked)
 
     def evt_btn_clicked(self):
-        # color = QColorDialog.getColor(QColor('red'), self, 'Choose color')
-        # color = QColorDialog.getColor(QColor('#FF0000'), self, 'Choose color')
-        # color = QColorDialog.getColor(QColor(255, 0, 0), self, 'Choose color')
-        color = QColorDialog.getColor(QColor(255, 0, 0, 255), self, 'Choose color')
-        print(color)
+        font, b_ok = QFontDialog.getFont()
+        print(font, b_ok)
+        if b_ok:
+            print(font.family())
+            print(font.italic())
+            print(font.bold())
+            print(font.weight())
+            print(font.pointSize())
+            self.btn.setFont(font)
 
 
 if __name__ == '__main__':
