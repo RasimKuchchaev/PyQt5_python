@@ -26,6 +26,26 @@ class DlgMain(QDialog):
         self.lblAbrr.resize(150, 30)
         self.lblAbrr.move(170, 50)
 
+    # ComboBox Edit
+        self.cmbPosts = QComboBox(self)
+        self.cmbPosts.move(50, 90)
+        self.cmbPosts.resize(200, 50)
+        self.cmbPosts.setEditable(True)     # редактируемый ComboBox
+        self.cmbPosts.setDuplicatesEnabled(False)   # не одинаковый
+        self.cmbPosts.addItem('First Post', 'asdasdasd')
+        self.cmbPosts.addItem('Second Post', 'dfgvcb')
+        self.cmbPosts.addItem('Third Post', 'hjkvsd')
+        self.cmbPosts.addItem('Forth Post', 'cvjjmfg')
+        self.cmbPosts.currentIndexChanged.connect(self.evt_cmb_posts_changed)
+
+    def evt_cmb_posts_changed(self, ids):
+        if not self.cmbPosts.itemData(ids):
+            input_str, bool_ok = QInputDialog.getText(self, 'Your Nickname', 'Enter your nickname for "{}"'
+                                                      .format(self.cmbPosts.itemText(ids)))
+            if bool_ok:
+                self.cmbPosts.setItemData(ids, input_str)
+        QMessageBox.information(self, 'Post', 'You have selected {}'.format(self.cmbPosts.itemData(ids)))
+
     def evt_cmb_state_highlighted(self, idx):
         self.lblAbrr.setText('State Abbreviation {}'.format(self.cmbState.itemData(idx)))
 
